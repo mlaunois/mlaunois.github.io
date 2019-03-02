@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<article id="post" class="main">
+	<div id="post-header">
+		<h1>{{ page.title | escape }}</h1>
+		<p class="post-meta">
+			<time class="post-time" datetime="{{ page.date | date_to_xmlschema }}">
+				{%- assign date_format = "%b %-d, %Y" -%}
+				{{ page.date | date: date_format }}
+			</time>
+			{%- if page.author -%}
+				| <span class="post-author">Written by <a href="https://github.com/{{ page.author | escape}}">{{ page.author }}</a> </span>
+			{%- endif -%}
+			{%- if page.url -%}
+				| <a href="{{ page.url | relative_url }}"">Permalink to this version of this post</a>
+			{%- endif -%}
+		</p>
+	</div>
+	<div class="post-content">
+		{{ content }}
+	</div>
+	<div id="post-footer">
+		{%- if page.previous -%}
+			<a href="{{ page.previous | relative_url }}">Previous post</a>
+		{%- else -%}
+			<a></a>
+		{%- endif -%}
+		{%- if page.next -%}
+			<a href="{{ page.next | relative_url }}" style="text-align: right">Next post</a>
+		{%- endif -%}
+	</div>
+</article>

@@ -1,0 +1,62 @@
+---
+layout: default
+title: Personal blog
+---
+<div id="home" class="main">
+	<h1>Personal blog{% if paginator.total_pages > 1 %} - Page {{ paginator.page }}{% endif %}</h1>
+	{% for post in paginator.posts %}
+		<ul class="post-list">
+			<li class="post-item">
+				{%- assign date_format = "%b %-d, %Y" -%}
+				<a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+				<span class="post-meta">
+				{%- if post.author -%}
+					by {{ post.author }} on
+				{%- endif -%}
+				&nbsp;{{ post.date | date: date_format }}
+				</span>
+			</li>
+    	</ul>
+	{% endfor %}
+	
+	{% if paginator.total_pages > 1 %}
+	<div id="pagination">
+		{% if paginator.previous_page %}
+			<a href="{{ paginator.previous_page_path | relative_url }}">Previous</a>
+		{% else %}
+			<a></a>
+    	{% endif %}
+    	
+		{% assign min_paginator_page = paginator.page | minus: 3 %}
+		{% assign min_paginator_threshold = min_paginator_page | plus: 7 %}
+		{% if min_paginator_page < 1 %}
+			{% assign min_paginator_page = 1 %}
+		{% elsif min_paginator_threshold > paginator.total_pages %}
+			{% assign min_paginator_page = paginator.total_pages | minus: 6 %}
+		{% endif %}
+		{% assign max_paginator_page = paginator.page | plus: 3 %}
+		{% assign max_paginator_threshold = max_paginator_page | minus: 7 %}
+		{% if max_paginator_page > paginator.total_pages %}
+			{% assign max_paginator_page = paginator.total_pages %}
+		{% elsif max_paginator_threshold < 1 %}
+			{% assign max_paginator_page = 7 %}
+		{% endif %}
+		
+		{% for page in (min_paginator_page..max_paginator_page) %}
+			{% if page == paginator.page %}
+				<b>{{ page }}</b>
+			{% elsif page == 1 %}
+				<a href="{{ paginator.previous_page_path | relative_url }}">{{ page }}</a>
+			{% else %}
+				<a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+			{% endif %}
+		{% endfor %}
+		
+		{% if paginator.next_page %}
+			<a href="{{ paginator.next_page_path | relative_url }}">Next</a>
+		{% else %}
+			<a></a>
+    	{% endif %}
+	</div>
+	{% endif %}
+</div>

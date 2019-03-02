@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<div id="home" class="main">
+	<h1>Maxime Launois personal site
+	<a href="https://github.com/mlaunois/mlaunois.github.io/edit/master/{{ page.path }}" class="improve-page">Improve this page</a></h1>
+	Welcome to my personal site. Here are hosted contents about my collaborative projects, related documentation and news.
+	{{ content }}
+	
+	{% if site.posts.size > 0 %}
+		{% assign post_number = 0 %}
+		<h2 id="posts">Ten latest posts</h2>
+		<ul class="post-list">
+			{% for post in site.posts %}
+				{% assign post_number = post_number | plus: 1 %}
+				<li class="post-item">
+					{% assign date_format = "%b %-d, %Y" %}
+					<a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+					<span class="post-meta">
+					{% if post.author %}
+						by {{ post.author }} on
+					{% endif %}
+					&nbsp;{{ post.date | date: date_format }}
+					</span>
+				</li>
+				{% if post_number > 9 %}
+					{% break %}
+				{% endif %}
+			{% endfor %}
+    	</ul>
+		<a href="{{ "/feed.xml" | relative_url }}">RSS feed</a>
+	{%- endif -%}
+</div>

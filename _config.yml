@@ -1,0 +1,31 @@
+# Site settings
+title: Maxime Launois personal site
+email: launois.maxime@free.fr
+description: >- # this means to ignore newlines until "baseurl:"
+  See all projects created and published by Maxime Launois.
+baseurl: ""
+url: "https://mlaunois.github.io"
+github_username:  mlaunois
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+sass:
+    style: compressed
+paginate: 10
+paginate_path: "/blog/page-:num/"
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
